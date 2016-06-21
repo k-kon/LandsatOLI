@@ -7,7 +7,7 @@
  6/11/2016 copied from Landsat ETM+	
 """
 # cd /Volumes/Transcend/LandsatETM+
-# extraction.py LC81080322015193LGN00 template.txt NEW
+# extraction.py LC81080322015193LGN00 template.txt NEW 0.0 0.0 
 
 import sys
 import os
@@ -17,12 +17,19 @@ import convert_util as ut
 import proj_util as pr
 
 param=sys.argv
-if len(param)!=4:
-    print 'Usage: extraction.py scene_name area_file new_folder'
+if len(param)!=4 and len(param)!=6:
+    print 'Usage: extraction.py scene_name area_file(dem.tif) new_folder (dx=0.0 dy=0.0)'
+    exit()
 
 fscene=param[1]
 fname=param[2]
 fnew=param[3]
+if len(param)==6:
+  dx=float(param[4])
+  dy=float(param[5])
+else:
+  dx=0.0
+  dy=0.0
 
 if os.path.isdir(fnew) == False: os.mkdir(fnew)  
 
@@ -48,7 +55,7 @@ os.chdir(fscene)
 print os.getcwd()
 list=os.listdir('.')
 for name in list:
-  print name
+  #print name
   if name.find('MTL.txt')!=-1 and name.find('._')==-1:
     fname=name[:-7]
 
@@ -71,8 +78,8 @@ if flag:
 for band in [1,2,3,4,5,6,7,9]:
   sat.read_band(band)
   conv=ut.convert(sat,xmax,ymax)
-  new=conv.convert(0.0,0.0)
-  #pr.write_tif('../'+fnew+'/band'+str(band)+'.tif',new,1)
+  new=conv.convert(dx,dy)
+  pr.write_tif('../'+fnew+'/band'+str(band)+'.tif',new,1)
 
 ut.gwrite(sat,fnew)
 exit()

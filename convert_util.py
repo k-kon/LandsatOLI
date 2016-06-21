@@ -244,3 +244,14 @@ def gwrite(sat,fnew):
   f.write("  offset= "+" ".join(offsetx)+"\n")
   f.write("  gain=   "+" ".join(gainx)+"\n")
   f.close()
+
+def incident(dem,sat) :
+  el=np.pi*sat.sun_el/180 ; az=np.pi*sat.sun_az/180
+  jmax,imax=dem.shape
+  a=(np.roll(dem,-1,1)-np.roll(dem,1,1))/60.0
+  a[:,0]=a[:,1] ; a[:,imax-1]=a[:,imax-2] 
+  b=(np.roll(dem,1,0)-np.roll(dem,-1,0))/60.0
+  b[0,:]=b[1,:] ; b[jmax-1,:]=b[jmax-2,:]
+  temp=-a*np.cos(el)*np.sin(az)-b*np.cos(el)*np.cos(az)+np.sin(el)
+  return temp/np.sqrt(1+a**2+b**2)
+
