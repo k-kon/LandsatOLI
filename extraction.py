@@ -6,8 +6,8 @@
 		Specified Region from DEM Geotif Image region 	
  6/11/2016 copied from Landsat ETM+	
 """
-# cd /Volumes/Transcend/LandsatETM+
-# extraction.py LC81080322015193LGN00 template.txt NEW 0.0 0.0 
+# cd /Volumes/Transcend/LandsatOLI
+# extraction.py LC81080322015145LGN00 template.txt NEW 0.0 0.0 
 
 import sys
 import os

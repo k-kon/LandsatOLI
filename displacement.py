@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 """
  Extraction of Landsat Image 
-	Original data : Landsat 7 ETM+ : geotif format
+	Original data : Landsat 8 OLI : geotif format
 		Specified Region from DEM Geotif Image region 	
 """
-# cd /Volumes/Transcend/LandsatETM
-# displacement.py LC81080322015193LGN00 new_utm.tif
+# cd /Volumes/Transcend/LandsatOLI
+# displacement.py LC81080322015145LGN00 new_utm.tif
 
 import sys
 import os
